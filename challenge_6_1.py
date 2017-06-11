@@ -12,7 +12,7 @@
 def calculateRetail():
 
 	print("What is the WHOLESALE_PRICE?\n")
-	WHOLESALE_PRICE = input(-->)
+	WHOLESALE_PRICE = input('-->')
 	if (WHOLESALE_PRICE is not float):
 		raise Expection('You must enter a number for your price.\n')
 	if (WHOLESALE_PRICE < 0):
@@ -24,7 +24,7 @@ def calculateRetail():
 	print('##.## == 00.00 %')
 
 
-	MARKUP_PERCENTAGE = input(-->)
+	MARKUP_PERCENTAGE = input('-->')
 
 	if (MARKUP_PERCENTAGE is not float):
 		raise Expection('You must enter a number for your percentage.\n')

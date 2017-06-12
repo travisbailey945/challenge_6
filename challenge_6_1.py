@@ -8,15 +8,18 @@
 	and its markup percentage. IT should then display the item's retail 
 	price."
 '''
+import logging
+logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s')
+logging.debug('Start of program')
+logging.disable(logging.CRITICAL)
 
 def calculateRetail():
+	logging.debug('Start of calculateRetail(%s)')
 
-	print("What is the WHOLESALE_PRICE?\n")
-	WHOLESALE_PRICE = input('-->')
-	if (WHOLESALE_PRICE is not float):
-		raise Expection('You must enter a number for your price.\n')
+	print("What is the WHOLESALE_PRICE?")
+	WHOLESALE_PRICE = float(input('--> '))
 	if (WHOLESALE_PRICE < 0):
-		raise Expection('Prices must be non-negative to be valid.\n')
+		raise Exception('Prices must be non-negative to be valid.\n')
 
 
 	# Ask for and revieve the Percentage 
@@ -24,18 +27,36 @@ def calculateRetail():
 	print('##.## == 00.00 %')
 
 
-	MARKUP_PERCENTAGE = input('-->')
+	MARKUP_PERCENTAGE = float(input('--> '))/100
+	logging.debug('MARKUP_PERCENTAGE is ' + str(MARKUP_PERCENTAGE))
 
-	if (MARKUP_PERCENTAGE is not float):
-		raise Expection('You must enter a number for your percentage.\n')
 	if (MARKUP_PERCENTAGE < 0):
-		raise Expection('Percentages must be non-negative to be valid.\n')
+		raise Exception('Percentages must be non-negative to be valid.\n')
+
+	RETAIL_PRICE = MARKUP_PERCENTAGE * WHOLESALE_PRICE
+	logging.debug('RETAIL_PRICE is ' + str(RETAIL_PRICE))
+
+	print('This item retails at: $' + '{:,.2f}'.format(RETAIL_PRICE) + '\n')
 
 try:
+	print('***************')
 	print('Howdy! This program takes input and calculates a retail price.')
 	print('Use CTRL-C to exit.')
-	while(true):
+	loop = True
+	while(loop):
+		logging.debug('Beginning of while(%s)')
 		calculateRetail()
-except Expection as err:
+		logging.debug('End of while(%s)')
+		print('Contine? (y/n)')
+		usr = str(input())
+		if (usr.lower() == 'n'):
+			print('\n*****\nYou\'ve elected to leave the program. Quitting.\n*****\n')
+			loop = False
+	logging.debug('End of program(%s)')
+except KeyboardInterrupt:
+	print('\n*****\nYou\'ve elected to leave the program. Quitting.\n*****\n')
+	exit
+
+except Exception as err:
 	print('An excpetion has occured:' + str(err))
 
